@@ -4,13 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.HomeFragment">
-    <androidx.viewpager2.widget.ViewPager2
+    <ProgressBar
+        android:layout_gravity="center"
+        android:progressDrawable="@color/gray"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/home_view_paper_slideshow"/>
-    <include layout="@layout/home_slideshow"></include>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_recycler_view"
+        android:id="@+id/home_pb"
+        android:layout_height="70dp" />
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/home_nested_scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation = "vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.example.playandroid.viewpaper.MyViewPager_NoScroll
+                android:id="@+id/home_view_paper"
+                android:layout_width="match_parent"
+                android:layout_height="230dp">
+            </com.example.playandroid.viewpaper.MyViewPager_NoScroll>
+            <TextView
+                android:id="@+id/home_banner_text"
+                android:background="@color/gray"
+                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </FrameLayout>

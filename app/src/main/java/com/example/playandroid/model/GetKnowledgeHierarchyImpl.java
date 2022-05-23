@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class GetKnowledgeHierarchyHTTP implements IGetData{
+public class GetKnowledgeHierarchyImpl implements IGetData{
     private ArrayList<KnowledgeHierarchy> list=new ArrayList<>();
     private Handler handler;
     private void getKnowledgeHierarchyHTTPFirst(){
@@ -49,7 +49,6 @@ public class GetKnowledgeHierarchyHTTP implements IGetData{
             list.add(knowledgeHierarchy);
             nameSecondSum ="";
         }
-        Log.d("tag",list.get(1).getNameFirst());
         Message message=new Message();
         message.obj=list;
         handler.sendMessage(message);

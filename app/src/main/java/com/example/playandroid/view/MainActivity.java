@@ -1,13 +1,23 @@
 package com.example.playandroid.view;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.playandroid.R;
 import com.example.playandroid.model.HttpUtil;
@@ -18,7 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewPager2 viewPager;
     private LinearLayout llHome,llKnowledgeHierarchy,llUser,llProject;
     private ImageView ivHome,ivKnowledgeHierarchy,ivUser,ivProject,ivCurrent;
-
+    private IntentFilter intentFilter;
+    private  NetworkChangeReceiver networkChangeReceiver;
+    private Toolbar toolbar;
     public MainActivity() {
     }
 
@@ -26,9 +38,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        intentFilter=new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        networkChangeReceiver=new NetworkChangeReceiver();
+        registerReceiver(networkChangeReceiver,intentFilter);
         initPaper();
         initTabView();
     }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        unregisterReceiver(networkChangeReceiver);//取消注册
+    }
+
+    public class NetworkChangeReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager connectivityManager=(ConnectivityManager)
+                    getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
+            if(networkInfo!=null&&networkInfo.isAvailable()){
+
+            }else {
+                Toast.makeText(context,"请检查网络连接",Toast.LENGTH_SHORT).show();
+            }
+
+        }}
 
     private void initTabView() {
         llHome=findViewById(R.id.home);
@@ -45,14 +80,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ivProject=findViewById(R.id.project_photo);
         ivHome.setSelected(true);
         ivCurrent=ivHome;
+        toolbar=findViewById(R.id.main_too_bar);
     }
 
     private void initPaper() {
         viewPager=findViewById(R.id.view_paper_main);
+        ActionBar actionBar=getSupportActionBar();
         ArrayList<Fragment> fragmentList=new ArrayList<>();
         fragmentList.add(HomeFragment.newInstance());
-        fragmentList.add(UserFragment.newInstance("知识"));
-        fragmentList.add(UserFragment.newInstance("项目"));
+        fragmentList.add(KnowledgeHierarchyFragment.newInstance());
+        fragmentList.add(ProjectFragment.newInstance());
         fragmentList.add(UserFragment.newInstance("用户"));
         MainFragmentAdapter mainFragmentAdapter=new MainFragmentAdapter(getSupportFragmentManager(),getLifecycle(),fragmentList);
         viewPager.setAdapter(mainFragmentAdapter);

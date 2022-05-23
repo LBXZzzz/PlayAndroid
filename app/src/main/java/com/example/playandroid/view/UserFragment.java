@@ -4,19 +4,23 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.playandroid.R;
+import com.example.playandroid.entities.HomeTextItem;
+import com.example.playandroid.entities.ProjectList;
+import com.example.playandroid.presenter.Presenter;
 
-public class UserFragment extends Fragment {
+import java.util.ArrayList;
+
+public class UserFragment extends Fragment implements IView{
 
     private static final String ARG_TEXT = "param1";
     View rootView;
-
-
     private String mText;
 
 
@@ -49,6 +53,7 @@ public class UserFragment extends Fragment {
             rootView =inflater.inflate(R.layout.fragment_user, container, false);
         }
         initView();
+
         return rootView;
     }
 
@@ -58,4 +63,8 @@ public class UserFragment extends Fragment {
     }
 
 
+    @Override
+    public void showData(ArrayList<?> list) {
+
+    }
 }

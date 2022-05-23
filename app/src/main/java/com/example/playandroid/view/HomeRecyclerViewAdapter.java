@@ -1,6 +1,5 @@
 package com.example.playandroid.view;
 
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +14,8 @@ import com.example.playandroid.entities.HomeTextItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> implements View.OnClickListener{
-    List<HomeTextItem> list=new ArrayList<>();
+public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+    List<HomeTextItem> mList =new ArrayList<>();
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
     }
@@ -36,7 +35,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
     public HomeRecyclerViewAdapter ( List<HomeTextItem> list){
-        this.list=list;
+        this.mList =list;
     }
 
     @Override
@@ -57,48 +56,88 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
             textView4=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view4);
         }
     }
+    public class FooterHolder extends RecyclerView.ViewHolder {
+        TextView footerText;
+        public FooterHolder(@NonNull View itemView) {
+            super(itemView);
+            footerText=(TextView) itemView.findViewById(R.id.footer_text);
+        }
+    }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view,parent,false);
-        ViewHolder holder=new ViewHolder(view);
-        return holder;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == 0) {
+            //你的item
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view,parent,false);
+            ViewHolder viewHolder = new ViewHolder(view);
+            return viewHolder;
+        } else {
+            //底部“加载更多”item
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footertext, parent, false);
+            FooterHolder footerHolder = new FooterHolder(view);
+            return footerHolder;
+        }
+
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        HomeTextItem homeTextItem=list.get(position);
-        holder.textView1.setText("类型："+homeTextItem.getSuperChapterName()+"/"+homeTextItem.getChapterName());
-        holder.textView2.setText("时间："+homeTextItem.getNiceDate());
-        holder.textView3.setText(homeTextItem.getTitle());
-        holder.textView4.setText("作者："+homeTextItem.getShareUser());
-        if (mOnItemClickListener != null){
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = holder.getLayoutPosition();
-                    mOnItemClickListener.onItemClick(holder.itemView,position);
-                }
-            });
-        }
-        if(mOnItemLongClickListener != null){
-            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    int position = holder.getLayoutPosition();
-                    mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
-                    //返回true 表示消耗了事件 事件不会继续传递
-                    return true;
-                }
-            });
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof ViewHolder){
+            HomeTextItem homeTextItem= mList.get(position);
+            (((ViewHolder) holder).textView1).setText("类型："+homeTextItem.getSuperChapterName()+"/"+homeTextItem.getChapterName());
+            (((ViewHolder) holder).textView2).setText("时间："+homeTextItem.getNiceDate());
+            (((ViewHolder) holder).textView3).setText(homeTextItem.getTitle());
+            (((ViewHolder) holder).textView4).setText("作者："+homeTextItem.getShareUser());
+            if (mOnItemClickListener != null){
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int position = holder.getLayoutPosition();
+                        mOnItemClickListener.onItemClick(holder.itemView,position);
+                    }
+                });
+            }
+            if(mOnItemLongClickListener != null){
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        int position = holder.getLayoutPosition();
+                        mOnItemLongClickListener.onItemLongClick(holder.itemView,position);
+                        //返回true 表示消耗了事件 事件不会继续传递
+                        return true;
+                    }
+                });
+            }
         }
 
+
+    }
+    @Override
+    public int getItemViewType(int position) {
+        if (position == mList.size()) {
+            //最后一个 是底部item
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return mList.size()+1;
+    }
+
+    //提供给外部调用的方法 刷新数据
+    public void updateData(List<HomeTextItem> list){
+        //再此处理获得的数据  list为传进来的数据
+        //... list传进来的数据 添加到mList中
+        for (int i = 0; i < list.size(); i++) {
+            mList.add(list.get(i));
+        }
+        //通知适配器更新
+        notifyDataSetChanged();
     }
 
 }

@@ -13,8 +13,8 @@ import com.example.playandroid.R;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class HomeFragmentClick extends AppCompatActivity {
-
+public class WebViewClick extends AppCompatActivity {
+    //这个是点击跳转文章的WebView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

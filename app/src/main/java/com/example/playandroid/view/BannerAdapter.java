@@ -3,7 +3,6 @@ package com.example.playandroid.view;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
@@ -11,8 +10,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import java.util.ArrayList;
 
 public class BannerAdapter extends PagerAdapter {
-    private ArrayList<ImageView> mImageViewList;
-    private int mPosition;
+    private final ArrayList<ImageView> mImageViewList;
 
     public BannerAdapter(ArrayList<ImageView> List){
         this.mImageViewList=List;
@@ -29,14 +27,14 @@ public class BannerAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup view, int position, Object object) {
+    public void destroyItem(ViewGroup view, int position, @NonNull Object object) {
         view.removeView(mImageViewList.get(position));
     }
 
     @Override
+    @NonNull
     public Object instantiateItem(ViewGroup view, int position) {
         view.addView(mImageViewList.get(position));
-        mPosition=position;
         return mImageViewList.get(position);
     }
 

@@ -17,6 +17,6 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_margin="@dimen/text_margin"
-        android:text="加载更多数据" />
+        android:text="@string/a" />
 
 </LinearLayout>

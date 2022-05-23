@@ -4,13 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.UserFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/text_view"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:background="?attr/colorPrimary"
+            android:layout_marginTop="1dp"
+            android:layout_height="220dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_user" />
+        </androidx.appcompat.widget.Toolbar>
+        <Button
+            android:id="@+id/user_my_collection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="我的收藏"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"/>
+        <Button
+            android:id="@+id/user_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="历史记录"
+            android:layout_marginBottom="16dp"/>
+        <Button
+            android:id="@+id/quit_load"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:layout_marginBottom="16dp"/>
+    </LinearLayout>
+
+
 
 </FrameLayout>

@@ -1,6 +1,7 @@
 package com.example.playandroid.view;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,21 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Handler;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.playandroid.R;
@@ -34,41 +29,28 @@ import com.example.playandroid.presenter.Presenter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class HomeFragment extends Fragment implements IView,IView2{
 
-    private Context ctx;
-    private boolean slidingUpward = false;
     private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
     //初始化ViewPager
     private View rootView;
     private ProgressBar mProgressBar;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-    private boolean loading = false;
-    private HomeFragmentAdapter homeFragmentAdapter;
-    //轮播的内容
-    private ArrayList<ImageView> imageViews;
-    private LinearLayout linearLayout;
-    //轮播控制
-    private Handler handler;
-    private Timer timer;
-    private TimerTask task;
-    private int mPosition;
 
     private int viewPaperClick;
     private ViewPager mViewPager;
     private TextView mTextView;
     private RecyclerView recyclerView;
     private ImageView mImageView;
-    private ArrayList<ImageView> mImageViewList=new ArrayList<>();
+    private final ArrayList<ImageView> mImageViewList=new ArrayList<>();
     private int currentPosition;
-    private List<String> mBannerTitle=new ArrayList<>();
+    private final List<String> mBannerTitle=new ArrayList<>();
     private List<HomeTextItem> mHomeTextItemList =new ArrayList<>();
     private List<BannerItem> mBannerItemList=new ArrayList<>();
     Presenter presenter;
+    public Activity mActivity;
+
 
     public HomeFragment() {
     }
@@ -87,7 +69,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(rootView==null){
             rootView =inflater.inflate(R.layout.fragment_home, container, false);
@@ -101,7 +83,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
         presenter.fetchGetBannerData();
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(mActivity,DividerItemDecoration.VERTICAL));
         return rootView;
     }
 
@@ -116,7 +98,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                /*LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 // 当不滑动时
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     //获取最后一个完全显示的itemPosition
@@ -129,7 +111,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
                         //加载更多
                         //homeRecyclerViewAdapter.updateData();
                     }
-                }*/
+                }
             }
 
             @Override
@@ -149,6 +131,8 @@ public class HomeFragment extends Fragment implements IView,IView2{
         mProgressBar.setVisibility(View.GONE);
     }
 
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void showData2(ArrayList<?> list) {
         mBannerItemList=(List<BannerItem>)list;
@@ -204,6 +188,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
         });
 
         mViewPager.setOnTouchListener(new View.OnTouchListener() {
+
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch (motionEvent.getAction()){
@@ -226,7 +211,11 @@ public class HomeFragment extends Fragment implements IView,IView2{
             }
         });
     }
-
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this.mActivity=(Activity)context;
+    }
 
 
 }

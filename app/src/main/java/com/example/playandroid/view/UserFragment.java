@@ -58,8 +58,7 @@ public class UserFragment extends Fragment implements IView{
     }
 
     private void initView() {
-        TextView textView=rootView.findViewById(R.id.text_view);
-        textView.setText(mText);
+
     }
 
 

@@ -2,6 +2,7 @@ package com.example.playandroid.view;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -12,12 +13,12 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.playandroid.R;
 import com.example.playandroid.model.HttpUtil;
@@ -44,6 +45,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         registerReceiver(networkChangeReceiver,intentFilter);
         initPaper();
         initTabView();
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,SearchActivity.class);//给后面开启的活动传值
+                startActivity(intent);
+            }
+        });
     }
 
     protected void onDestroy(){

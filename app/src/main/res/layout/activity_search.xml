@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,25 +10,23 @@
     >
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main_too_bar"
+        android:id="@+id/search_activity_too_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:orientation="horizontal"
-        android:textSize="20sp"
-        app:title="玩安卓APP"
-        app:navigationIcon="@drawable/ic_search">
+        app:navigationIcon="@drawable/ic_resource_return"
+        >
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:hint="@string/edit"
+            android:textColor="@color/black"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:minLines="1"
+            android:textColorHint="#95A1AA" />
 
     </androidx.appcompat.widget.Toolbar>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/view_paper_main"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"/>
-    <include layout="@layout/navigation_bar"/>
 </LinearLayout>
-
-
-

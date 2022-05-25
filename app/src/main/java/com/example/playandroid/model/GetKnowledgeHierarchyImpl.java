@@ -56,7 +56,7 @@ public class GetKnowledgeHierarchyImpl implements IGetData{
 
 
     @Override
-    public void getData(IGetData.SuccessReturnData successReturnData) {
+    public void getData(SuccessReturnData successReturnData) {
         getKnowledgeHierarchyHTTPFirst();
         handler=new Handler(){
             @Override

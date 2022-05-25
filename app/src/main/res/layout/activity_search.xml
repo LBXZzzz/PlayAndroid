@@ -29,4 +29,15 @@
             android:textColorHint="#95A1AA" />
 
     </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="热门搜索"/>
+    <LinearLayout
+        android:id="@+id/search_linearlayout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
 </LinearLayout>

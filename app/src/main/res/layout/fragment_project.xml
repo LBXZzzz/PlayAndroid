@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <com.example.playandroid.viewpaper.MyViewPager_NoScroll
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/project_view_paper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

@@ -1,64 +1,129 @@
 package com.example.playandroid.view;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.example.playandroid.R;
+import com.example.playandroid.entities.ProjectListItem;
+import com.example.playandroid.presenter.Presenter;
+import com.example.playandroid.presenter.Presenter1;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProjectListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ProjectListFragment extends Fragment {
+import java.util.ArrayList;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class ProjectListFragment extends Fragment implements IView3{
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private View rootView;
+    private static String mProjectListId;
+    private RecyclerView mRecyclerView;
+    private ProgressBar mProgressBar;
+    private ProjectListRecyclerViewAdapter projectListRecyclerViewAdapter;
+    public Activity mActivity;
+    Presenter1 presenter;
+    private ArrayList<String> mProjectListIdList=new ArrayList<>();
+    int page=0;
+    private ArrayList<ProjectListItem> mProjectListItemArrayList;
     public ProjectListFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     *
-     * @return A new instance of fragment ProjectListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProjectListFragment newInstance() {
+    public static ProjectListFragment newInstance(String projectListId) {
         ProjectListFragment fragment = new ProjectListFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
+        args.putString("projectListId",projectListId);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        mProjectListId = getArguments().getString("projectListId");
+        System.out.println("lllll:"+mProjectListId);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_project_list, container, false);
+        if(rootView==null){
+            rootView =inflater.inflate(R.layout.fragment_project_list, container, false);
+        }
+        mProgressBar=(ProgressBar) rootView.findViewById(R.id.project_list_progressbar);
+        mRecyclerView=(RecyclerView) rootView.findViewById(R.id.project_list_recycler_view);
+        presenter=new Presenter1(this);
+        presenter.fetchGetProjectListData(mProjectListId,page);
+        System.out.println("rojectListId"+page);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity,DividerItemDecoration.VERTICAL));
+        return rootView;
+    }
+
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        this.mActivity=(Activity)context;
+    }
+
+    @Override
+    public void showData3(ArrayList<?> list) {
+        mProjectListItemArrayList=(ArrayList<ProjectListItem>) list;
+       if(page==0){
+            projectListRecyclerViewAdapter=new ProjectListRecyclerViewAdapter(mProjectListItemArrayList);
+            mRecyclerView.setAdapter(projectListRecyclerViewAdapter);
+        }else {
+            projectListRecyclerViewAdapter.updateData(mProjectListItemArrayList);
+        }
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                // 当不滑动时
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    //获取最后一个完全显示的itemPosition
+                    int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
+                    int itemCount = manager.getItemCount();
+                    System.out.println(itemCount);
+                    System.out.println(lastItemPosition);
+                    // 判断是否滑动到了最后一个item，并且是向上滑动
+                    if (lastItemPosition == (itemCount - 1) ) {
+                        //加载更多
+                        page++;
+                        presenter.fetchGetProjectListData(mProjectListId,page);
+                        //homeRecyclerViewAdapter.updateData();
+                    }
+                }
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+        projectListRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String data= mProjectListItemArrayList.get(position).getLink();
+                Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
+                intent.putExtra("link",data);
+                startActivity(intent);
+            }
+        });
+        mProgressBar.setVisibility(View.GONE);
     }
 }

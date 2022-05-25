@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.ProjectListFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context=".view.ProjectListFragment"
+    android:descendantFocusability="blocksDescendants"
+    >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/project_list_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="/hell" />
-
+        android:layout_height="match_parent"/>
+    <ProgressBar
+        android:id="@+id/project_list_progressbar"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </FrameLayout>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -50,10 +51,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
     private List<BannerItem> mBannerItemList=new ArrayList<>();
     Presenter presenter;
     public Activity mActivity;
-
-
-    public HomeFragment() {
-    }
+    int page=0;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -79,7 +77,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
         recyclerView=(RecyclerView) rootView.findViewById(R.id.home_recycler_view);
         //mSwipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE);
         presenter=new Presenter(this,this);
-        presenter.fetchGetHomeData();
+        presenter.fetchGetHomeData(page);
         presenter.fetchGetBannerData();
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -92,8 +90,12 @@ public class HomeFragment extends Fragment implements IView,IView2{
     public void showData(ArrayList<?> list) {
         mHomeTextItemList =(ArrayList<HomeTextItem>)list;
         mProgressBar=(ProgressBar)rootView.findViewById(R.id.home_pb);
-        homeRecyclerViewAdapter=new HomeRecyclerViewAdapter(mHomeTextItemList);
-        recyclerView.setAdapter(homeRecyclerViewAdapter);
+        if(page==0){
+            homeRecyclerViewAdapter=new HomeRecyclerViewAdapter(mHomeTextItemList);
+            recyclerView.setAdapter(homeRecyclerViewAdapter);
+        }else {
+            homeRecyclerViewAdapter.updateData(mHomeTextItemList);
+        }
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -109,6 +111,9 @@ public class HomeFragment extends Fragment implements IView,IView2{
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == (itemCount - 1) ) {
                         //加载更多
+                        page++;
+                        Log.d("ssssss","11111");
+                        presenter.fetchGetHomeData(page);
                         //homeRecyclerViewAdapter.updateData();
                     }
                 }

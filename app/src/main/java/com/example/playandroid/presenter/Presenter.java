@@ -6,7 +6,11 @@ import com.example.playandroid.model.GetBannerImpl;
 import com.example.playandroid.model.GetHomeDataImpl;
 import com.example.playandroid.model.GetKnowledgeHierarchyImpl;
 import com.example.playandroid.model.GetProjectDataImpl;
+import com.example.playandroid.model.GetProjectListDataImpl;
+import com.example.playandroid.model.GetSearchHotWordImpl;
 import com.example.playandroid.model.IGetData;
+import com.example.playandroid.model.IGetDataIdPage;
+import com.example.playandroid.model.IGetDataPage;
 import com.example.playandroid.view.IView;
 import com.example.playandroid.view.IView2;
 
@@ -17,6 +21,8 @@ public class Presenter {
     GetKnowledgeHierarchyImpl getKnowledgeHierarchy;
     GetProjectDataImpl getProjectData;
     GetBannerImpl getBanner;
+    GetSearchHotWordImpl getSearchHotWord;
+    GetProjectListDataImpl getProjectListData;
     IView mView;
     IView2 mView2;
     public Presenter(IView iView,IView2 iView2){
@@ -26,26 +32,25 @@ public class Presenter {
         getKnowledgeHierarchy=new GetKnowledgeHierarchyImpl();
         getProjectData=new GetProjectDataImpl();
         getBanner=new GetBannerImpl();
+        getSearchHotWord=new GetSearchHotWordImpl();
+        getProjectListData=new GetProjectListDataImpl();
     }
-    public void fetchGetHomeData(){
-        this.getHomeData.getData(new GetHomeDataImpl.SuccessReturnData(){
+    public void fetchGetHomeData(int page){
+        this.getHomeData.getData(page,new IGetDataPage.SuccessReturnDataPage(){
 
             @Override
-            public void Complete(ArrayList<?> dataList) {
-
-                mView.showData(dataList);
-
+            public void Complete(ArrayList<?> arrayList) {
+                mView.showData(arrayList);
             }
         });
     }
+
     public void fetchGetKnowledgeHierarchyData(){
-        this.getKnowledgeHierarchy.getData(new GetHomeDataImpl.SuccessReturnData(){
+        this.getKnowledgeHierarchy.getData(new IGetData.SuccessReturnData(){
 
             @Override
-            public void Complete(ArrayList<?> dataList) {
-
-                mView.showData(dataList);
-
+            public void Complete(ArrayList<?> arrayList) {
+                mView.showData(arrayList);
             }
         });
     }
@@ -66,6 +71,25 @@ public class Presenter {
             @Override
             public void Complete(ArrayList<?> dataList) {
                 mView2.showData2(dataList);
+            }
+        });
+    }
+
+    public void fetchGetSearchHotWod(){
+        this.getSearchHotWord.getData(new IGetData.SuccessReturnData(){
+
+            @Override
+            public void Complete(ArrayList<?> arrayList) {
+                mView.showData(arrayList);
+            }
+        });
+    }
+
+    public void fetchGetProjectListData(String Id, int page){
+        this.getProjectListData.getData(Id, page, new IGetDataIdPage.SuccessReturnDataPageId() {
+            @Override
+            public void Complete(ArrayList<?> arrayList) {
+                mView.showData(arrayList);
             }
         });
     }

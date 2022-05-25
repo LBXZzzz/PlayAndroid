@@ -63,9 +63,9 @@ public class ProjectFragment extends Fragment implements IView,IView2{
         mProjectLists =(ArrayList<ProjectList>)list;
         for (int i = 0; i < mProjectLists.size(); i++) {
             mProjectName.add(mProjectLists.get(i).getName());
-            mFragmentList.add(ProjectListFragment.newInstance());
+            mFragmentList.add(ProjectListFragment.newInstance(mProjectLists.get(i).getId()));
+            Log.d("System",mProjectLists.get(i).getId());
         }
-
         ProjectAdapter projectAdapter=new ProjectAdapter(getChildFragmentManager(),mFragmentList,mProjectName);
         mViewPager.setAdapter(projectAdapter);
         mTabLayout.setupWithViewPager(mViewPager);

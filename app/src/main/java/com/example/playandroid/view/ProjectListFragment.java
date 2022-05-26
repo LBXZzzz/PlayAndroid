@@ -36,6 +36,7 @@ public class ProjectListFragment extends Fragment implements IView3{
     private ArrayList<String> mProjectListIdList=new ArrayList<>();
     int page=0;
     private ArrayList<ProjectListItem> mProjectListItemArrayList;
+    private ArrayList<ProjectListItem> mTotalProjectListItemArrayList;
     public ProjectListFragment() {
         // Required empty public constructor
     }
@@ -98,8 +99,6 @@ public class ProjectListFragment extends Fragment implements IView3{
                     //获取最后一个完全显示的itemPosition
                     int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
                     int itemCount = manager.getItemCount();
-                    System.out.println(itemCount);
-                    System.out.println(lastItemPosition);
                     // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == (itemCount - 1) ) {
                         //加载更多

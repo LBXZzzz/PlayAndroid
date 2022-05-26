@@ -1,7 +1,5 @@
 package com.example.playandroid.view;
 
-import android.app.Activity;
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
-import com.example.playandroid.entities.HomeTextItem;
 import com.example.playandroid.entities.ProjectListItem;
+import com.example.playandroid.entities.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
-    private ArrayList<ProjectListItem> mList;
+public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+    private ArrayList<SearchResult> mList;
+
+    public SearchRecyclerViewAdapter(ArrayList<SearchResult> list){
+        this.mList=list;
+    }
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
     }
@@ -39,25 +41,20 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
     public void setOnItemLongClickListener(HomeRecyclerViewAdapter.OnItemLongClickListener mOnItemLongClickListener) {
         this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
-    public ProjectListRecyclerViewAdapter(ArrayList<ProjectListItem> list){
-        this.mList=list;
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView imageView;
         TextView textView1;
         TextView textView2;
         TextView textView3;
         TextView textView4;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview1);
-            textView2=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview2);
-            textView3=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview3);
-            textView4=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview4);
-            imageView=(ImageView) itemView.findViewById(R.id.project_list_recycler_view_imageview);
+            textView1=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view1);
+            textView2=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view2);
+            textView3=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view3);
+            textView4=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view4);
         }
     }
+
     public class FooterHolder extends RecyclerView.ViewHolder {
         TextView footerText;
         public FooterHolder(@NonNull View itemView) {
@@ -71,31 +68,15 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
 
     }
 
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == 0) {
-            //你的item
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_recycler_view,parent,false);
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
-        } else {
-            //底部“加载更多”item
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footertext, parent, false);
-            FooterHolder footerHolder=new FooterHolder(view);
-            return footerHolder;
-        }
-    }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ProjectListRecyclerViewAdapter.ViewHolder){
-            ProjectListItem projectListItem=mList.get(position);
-            (((ViewHolder) holder).imageView).setImageBitmap(projectListItem.getBitmap());
-            (((ViewHolder) holder).textView1).setText(projectListItem.getTitle());
-            (((ViewHolder) holder).textView2).setText(projectListItem.getDesc());
-            (((ViewHolder) holder).textView3).setText("作者："+projectListItem.getAuthor());
-            (((ViewHolder) holder).textView4).setText("时间："+projectListItem.getNiceShareData());
+        if(holder instanceof SearchRecyclerViewAdapter.ViewHolder){
+            SearchResult searchResult=mList.get(position);
+            (((SearchRecyclerViewAdapter.ViewHolder) holder).textView1).setText("类型："+searchResult.getSuperChapterName()+"/"+searchResult.getChapterName());
+            (((SearchRecyclerViewAdapter.ViewHolder) holder).textView2).setText("时间："+searchResult.getNiceDate());
+            (((SearchRecyclerViewAdapter.ViewHolder) holder).textView3).setText(searchResult.getTitle());
+            (((SearchRecyclerViewAdapter.ViewHolder) holder).textView4).setText("作者："+searchResult.getAuthor());
             if (mOnItemClickListener != null){
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -129,19 +110,36 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         }
     }
 
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == 0) {
+            //你的item
+            System.out.println("66666");
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_recycler_view,parent,false);
+            ViewHolder viewHolder=new ViewHolder(view);
+            return viewHolder;
+        } else {
+            //底部“加载更多”item
+            System.out.println("55566666");
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footertext, parent, false);
+            FooterHolder footerHolder=new FooterHolder(view);
+            return footerHolder;
+        }
+    }
+
     @Override
     public int getItemCount() {
         return mList.size()+1;
     }
 
     //提供给外部调用的方法 刷新数据
-    public void updateData(List<ProjectListItem> list){
+    public void updateData(List<SearchResult> list){
         //再此处理获得的数据  list为传进来的数据
         //... list传进来的数据 添加到mList中
         for (int i = 0; i < list.size(); i++) {
             mList.add(list.get(i));
         }
-        //通知适配器更新
         notifyDataSetChanged();
     }
 

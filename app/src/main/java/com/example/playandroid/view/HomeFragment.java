@@ -47,7 +47,9 @@ public class HomeFragment extends Fragment implements IView,IView2{
     private final ArrayList<ImageView> mImageViewList=new ArrayList<>();
     private int currentPosition;
     private final List<String> mBannerTitle=new ArrayList<>();
+    private List<String> mBannerLink=new ArrayList<>();
     private List<HomeTextItem> mHomeTextItemList =new ArrayList<>();
+    private List<HomeTextItem> mTotalHomeTextItemList =new ArrayList<>();
     private List<BannerItem> mBannerItemList=new ArrayList<>();
     Presenter presenter;
     public Activity mActivity;
@@ -80,6 +82,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
         presenter.fetchGetHomeData(page);
         presenter.fetchGetBannerData();
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        layoutManager.setSmoothScrollbarEnabled(false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(new DividerItemDecoration(mActivity,DividerItemDecoration.VERTICAL));
         return rootView;
@@ -89,6 +92,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
     @Override
     public void showData(ArrayList<?> list) {
         mHomeTextItemList =(ArrayList<HomeTextItem>)list;
+        mTotalHomeTextItemList.addAll(mHomeTextItemList);
         mProgressBar=(ProgressBar)rootView.findViewById(R.id.home_pb);
         if(page==0){
             homeRecyclerViewAdapter=new HomeRecyclerViewAdapter(mHomeTextItemList);
@@ -106,15 +110,10 @@ public class HomeFragment extends Fragment implements IView,IView2{
                     //获取最后一个完全显示的itemPosition
                     int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
                     int itemCount = manager.getItemCount();
-                    System.out.println(itemCount);
-                    System.out.println(lastItemPosition);
-                    // 判断是否滑动到了最后一个item，并且是向上滑动
                     if (lastItemPosition == (itemCount - 1) ) {
                         //加载更多
                         page++;
-                        Log.d("ssssss","11111");
                         presenter.fetchGetHomeData(page);
-                        //homeRecyclerViewAdapter.updateData();
                     }
                 }
             }
@@ -127,7 +126,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
         homeRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String data= mHomeTextItemList.get(position).getLink();
+                String data= mTotalHomeTextItemList.get(position).getLink();
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
                 startActivity(intent);
@@ -147,16 +146,19 @@ public class HomeFragment extends Fragment implements IView,IView2{
         mImageView.setImageBitmap(mBannerItemList.get(2).getBitmap());
         mImageViewList.add(mImageView);
         mBannerTitle.add(mBannerItemList.get(2).getTitle());
+        mBannerLink.add(mBannerItemList.get(2).getUrl());
         for (int i = 0; i < mBannerItemList.size(); i++) {
             mImageView=new ImageView(getActivity());
             mImageView.setImageBitmap(mBannerItemList.get(i).getBitmap());
             mImageViewList.add(mImageView);
             mBannerTitle.add(mBannerItemList.get(i).getTitle());
+            mBannerLink.add(mBannerItemList.get(i).getUrl());
         }
         mImageView=new ImageView(getActivity());
         mImageView.setImageBitmap(mBannerItemList.get(0).getBitmap());
         mImageViewList.add(mImageView);
         mBannerTitle.add(mBannerItemList.get(0).getTitle());
+        mBannerLink.add(mBannerItemList.get(0).getUrl());
         mTextView.setText(mBannerItemList.get(2).getTitle());
         BannerAdapter bannerAdapter=new BannerAdapter(mImageViewList);
         mViewPager.setAdapter(bannerAdapter);
@@ -178,7 +180,6 @@ public class HomeFragment extends Fragment implements IView,IView2{
                 } else {
                     currentPosition = position;
                 }
-                System.out.println(position);
                 mTextView.setText(mBannerTitle.get(position));
             }
 
@@ -206,7 +207,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
                     case MotionEvent.ACTION_UP:
                         if(viewPaperClick==0){
                             int item= mViewPager.getCurrentItem();
-                            String data=mBannerItemList.get(item).getUrl();
+                            String data=mBannerLink.get(item);
                             Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                             intent.putExtra("link",data);
                             startActivity(intent);

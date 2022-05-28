@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
@@ -15,6 +17,9 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 public class HttpUtil {
+    /**网络请求封装，“Get请求”
+    * @return_description 返回值为网络请求后获得的输入流的字符串
+    * */
     public String httpUtil(String Url){
         String jsonString="";
         HttpsURLConnection connection=null;
@@ -58,6 +63,9 @@ public class HttpUtil {
         String key="k="+param;
         // 结果值
         StringBuffer rest=new StringBuffer();
+        CookieManager manager = new CookieManager();
+        //设置cookie策略，只接受与你对话服务器的cookie，而不接收Internet上其它服务器发送的cookie
+        manager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
 
         HttpURLConnection conn=null;
         OutputStream out=null;

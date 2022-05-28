@@ -1,7 +1,7 @@
 package com.example.playandroid.entities;
 
 public class HomeTextItem {
-    /*
+    /**
     * "chapterName": "自助",
     * "superChapterName": "广场Tab",
     * "title": "对 Android 应用换肤方案的总结",

@@ -29,6 +29,9 @@
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/activity_search.xml" value="0.1801566579634465" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/content_search.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/footertext.xml" value="0.35520833333333335" />
+        <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/footertext_over.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/footertextover.xml" value="0.35520833333333335" />
+        <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/footertxt_over.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_blank.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_first.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_home.xml" value="0.1" />
@@ -38,7 +41,8 @@
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_project.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_project_list.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_second.xml" value="0.2391304347826087" />
-        <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_user.xml" value="0.1801566579634465" />
+        <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/fragment_user.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/head_holder.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/home_recycler_view.xml" value="0.2391304347826087" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/home_slideshow.xml" value="0.35520833333333335" />
         <entry key="..\:/Users/16956/AndroidStudioProjects/PlayAndroid/app/src/main/res/layout/item.xml" value="0.35520833333333335" />

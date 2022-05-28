@@ -13,11 +13,29 @@
             android:background="?attr/colorPrimary"
             android:layout_marginTop="1dp"
             android:layout_height="220dp">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_user" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+                <ImageButton
+                    android:id="@+id/user_IB"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_user"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@color/purple_500"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="去登录" />
+
+            </LinearLayout>
+
         </androidx.appcompat.widget.Toolbar>
         <Button
             android:id="@+id/user_my_collection"

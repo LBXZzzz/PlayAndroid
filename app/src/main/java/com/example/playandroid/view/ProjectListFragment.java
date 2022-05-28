@@ -125,4 +125,5 @@ public class ProjectListFragment extends Fragment implements IView3{
         });
         mProgressBar.setVisibility(View.GONE);
     }
+
 }

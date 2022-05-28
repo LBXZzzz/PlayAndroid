@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,8 @@ import java.util.List;
 
 public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
     private ArrayList<ProjectListItem> mList;
+    private List<ProjectListItem> list;
+    private boolean arriveBottom=false;
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
     }
@@ -60,9 +63,15 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
     }
     public class FooterHolder extends RecyclerView.ViewHolder {
         TextView footerText;
+        ProgressBar progressBar;
         public FooterHolder(@NonNull View itemView) {
             super(itemView);
             footerText=(TextView) itemView.findViewById(R.id.footer_text);
+            progressBar=(ProgressBar)itemView.findViewById(R.id.pb_main_download);
+            if(arriveBottom){
+                progressBar.setVisibility(View.GONE);
+                footerText.setText("已经到底了喔~~");
+            }
         }
     }
 
@@ -133,9 +142,11 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
     public int getItemCount() {
         return mList.size()+1;
     }
-
     //提供给外部调用的方法 刷新数据
     public void updateData(List<ProjectListItem> list){
+        if(list.isEmpty()){
+            arriveBottom=true;
+        }
         //再此处理获得的数据  list为传进来的数据
         //... list传进来的数据 添加到mList中
         for (int i = 0; i < list.size(); i++) {
@@ -144,5 +155,8 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         //通知适配器更新
         notifyDataSetChanged();
     }
+
+
+
 
 }

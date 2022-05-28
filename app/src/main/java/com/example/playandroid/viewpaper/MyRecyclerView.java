@@ -4,34 +4,31 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import androidx.viewpager.widget.ViewPager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewPager_NoScroll extends ViewPager {
-    public MyViewPager_NoScroll(Context context, AttributeSet attrs) {
+public class MyRecyclerView extends RecyclerView {
+    public MyRecyclerView(@NonNull Context context) {
+        super(context);
+    }
+
+    public MyRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        super.onInterceptTouchEvent(ev);
-        return true;
+    public MyRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
     }
 
-
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        super.onTouchEvent(ev);
-        float mDx=0.0f, mDy=0.0f;//按下坐标值
-        //判断子item总个数不大于1，TouchEvent返回默认值，继续消费。
-        if (getChildCount() <= 1) {
-            super.onTouchEvent(ev);
-        }
-        //获取事件
-        switch (ev.getAction()) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        //告诉父控件不要拦截子控件的滑动
+
+
+        float x = ev.getX();
+        switch (ev.getActionMasked()) {
             case MotionEvent.ACTION_DOWN://按下
-                mDx = ev.getX();
-                mDy = ev.getY();
                 if (getParent() != null) {
                     getParent().requestDisallowInterceptTouchEvent(true);   //让事件不再分发
                 }
@@ -56,7 +53,6 @@ public class MyViewPager_NoScroll extends ViewPager {
                 break;
         }
 
-        return true;        //让事件不再分发
+        return true;
     }
-
 }

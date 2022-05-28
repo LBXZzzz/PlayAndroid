@@ -1,9 +1,12 @@
 package com.example.playandroid.view;
 
+import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +19,7 @@ public class ProjectAdapter extends FragmentPagerAdapter  {
             fragmentList=fragments;
             this.tabs=tabs;
     }
+
 
     @NonNull
     @Override
@@ -31,6 +35,21 @@ public class ProjectAdapter extends FragmentPagerAdapter  {
     @Override
     public CharSequence getPageTitle(int position) {
         return tabs.get(position);
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return fragmentList.get(position).hashCode();
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        // super.destroyItem(container, position, object);
     }
 
 }

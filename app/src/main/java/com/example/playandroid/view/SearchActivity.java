@@ -117,7 +117,6 @@ public class SearchActivity extends AppCompatActivity implements IView,IView2,IV
         mProgressBar.setVisibility(View.GONE);
         mSearchResultList=(ArrayList<SearchResult>) list;
         mTotalSearchResultList.addAll(mSearchResultList);
-        Log.d("search",mSearchResultList.get(0).getTitle());
         if(page==0){
             mLinearLayout.setVisibility(View.GONE);
             searchRecyclerViewAdapter=new SearchRecyclerViewAdapter(mSearchResultList);

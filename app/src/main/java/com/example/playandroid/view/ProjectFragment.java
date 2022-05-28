@@ -53,6 +53,7 @@ public class ProjectFragment extends Fragment implements IView,IView2{
         }
         mTabLayout=rootView.findViewById(R.id.project_tab_layout);
         mViewPager=rootView.findViewById(R.id.project_view_paper);
+        //mViewPager.setOffscreenPageLimit(12);
         presenter=new Presenter(this,this);
         presenter.fetchGetProjectData();
         return rootView;

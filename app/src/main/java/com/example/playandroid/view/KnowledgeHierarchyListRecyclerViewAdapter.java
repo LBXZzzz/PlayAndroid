@@ -19,7 +19,7 @@ import com.example.playandroid.entities.ProjectListItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
+public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<KnowledgeHierarchyListItem> mList;
     private boolean arriveBottom=false;
     public interface OnItemClickListener{
@@ -51,10 +51,10 @@ public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adap
         TextView textView4;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view1);
-            textView2=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view2);
-            textView3=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view3);
-            textView4=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view4);
+            textView1=itemView.findViewById(R.id.home_recycler_view_test_view1);
+            textView2=itemView.findViewById(R.id.home_recycler_view_test_view2);
+            textView3=itemView.findViewById(R.id.home_recycler_view_test_view3);
+            textView4=itemView.findViewById(R.id.home_recycler_view_test_view4);
         }
     }
 
@@ -63,8 +63,8 @@ public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adap
         ProgressBar progressBar;
         public FooterHolder(@NonNull View itemView) {
             super(itemView);
-            footerText=(TextView) itemView.findViewById(R.id.footer_text);
-            progressBar=(ProgressBar)  itemView.findViewById(R.id.pb_main_download);
+            footerText=itemView.findViewById(R.id.footer_text);
+            progressBar=itemView.findViewById(R.id.pb_main_download);
             if(arriveBottom){
                 progressBar.setVisibility(View.GONE);
                 footerText.setText("已经到底了喔~~");
@@ -89,11 +89,6 @@ public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adap
         }
 
     }
-    @Override
-    public void onClick(View view) {
-
-    }
-
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {

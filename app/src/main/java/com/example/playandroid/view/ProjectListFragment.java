@@ -76,7 +76,7 @@ public class ProjectListFragment extends Fragment implements IView3{
         super.onAttach(context);
         this.mActivity=(Activity)context;
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public void showData3(ArrayList<?> list) {
         mProjectListItemArrayList=(ArrayList<ProjectListItem>) list;

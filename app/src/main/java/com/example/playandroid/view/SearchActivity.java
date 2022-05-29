@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity implements IView,IView2,IV
 
     }
 
-
+    @SuppressWarnings("unchecked")
     @Override
     public void showData(ArrayList<?> list) {
         mList=(ArrayList<SearchHotWord>) list;

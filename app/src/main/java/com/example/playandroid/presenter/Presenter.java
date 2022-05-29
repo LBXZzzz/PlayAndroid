@@ -85,12 +85,4 @@ public class Presenter {
         });
     }
 
-    /*public void fetchGetProjectListData(String Id, int page){
-        this.getProjectListData.getData(Id, page, new IGetDataIdPage.SuccessReturnDataPageId() {
-            @Override
-            public void Complete(ArrayList<?> arrayList) {
-                mView.showData(arrayList);
-            }
-        });
-    }*/
 }

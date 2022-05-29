@@ -19,8 +19,6 @@
         android:textSize="20sp"
         app:title="玩安卓APP"
         app:navigationIcon="@drawable/ic_search">
-
-
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.viewpager2.widget.ViewPager2

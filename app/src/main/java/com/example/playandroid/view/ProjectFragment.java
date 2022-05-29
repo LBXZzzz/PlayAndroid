@@ -57,7 +57,7 @@ public class ProjectFragment extends Fragment implements IView,IView2{
         presenter.fetchGetProjectData();
         return rootView;
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public void showData(ArrayList<?> list) {
         mProjectLists =(ArrayList<ProjectList>)list;

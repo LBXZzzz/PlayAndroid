@@ -2,9 +2,7 @@ package com.example.playandroid.model;
 
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
-import com.example.playandroid.entities.KnowledgeHierarchy;
 import com.example.playandroid.entities.ProjectList;
 
 import org.json.JSONArray;
@@ -21,7 +19,7 @@ public class GetProjectDataImpl implements IGetData{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
                     getProjectDataString(httpUtil.httpUtil("https://www.wanandroid.com/project/tree/json"));
                 } catch (JSONException e) {

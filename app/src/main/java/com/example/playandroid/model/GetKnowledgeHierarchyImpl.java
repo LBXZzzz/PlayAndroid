@@ -22,7 +22,7 @@ public class GetKnowledgeHierarchyImpl implements IGetData{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
                     getKnowledgeHierarchyFirstString(httpUtil.httpUtil("https://www.wanandroid.com/tree/json"));
                 } catch (JSONException e) {

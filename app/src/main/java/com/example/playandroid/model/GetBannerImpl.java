@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.example.playandroid.entities.BannerItem;
 
@@ -26,7 +25,7 @@ public class GetBannerImpl implements IGetData{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
                     getBanner(httpUtil.httpUtil(Url));
                 } catch (JSONException e) {

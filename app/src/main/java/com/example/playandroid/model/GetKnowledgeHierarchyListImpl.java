@@ -4,10 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.playandroid.entities.KnowledgeHierarchyList;
 import com.example.playandroid.entities.KnowledgeHierarchyListItem;
-import com.example.playandroid.entities.ProjectList;
-import com.example.playandroid.entities.ProjectListItem;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,9 +19,9 @@ public class GetKnowledgeHierarchyListImpl implements IGetDataIdPage{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
-                    String s=httpUtil.httpUtil(Url);
+                    String s= httpUtil.httpUtil(Url);
                     getKnowledgeHierarchyListString(s);
                 } catch (JSONException e) {
                     e.printStackTrace();

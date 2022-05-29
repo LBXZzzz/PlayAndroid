@@ -23,7 +23,7 @@ public class KnowledgeHierarchyListActivity extends AppCompatActivity {
     ArrayList<Fragment> mFragmentList =new ArrayList<>();
     ArrayList<String> mName =new ArrayList<>();
 
-
+    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

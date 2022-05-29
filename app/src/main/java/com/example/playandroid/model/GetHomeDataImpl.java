@@ -20,7 +20,7 @@ public class GetHomeDataImpl implements IGetDataPage{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
                     getKnowledgeHierarchyFirstString(httpUtil.httpUtil(Url));
                 } catch (JSONException e) {

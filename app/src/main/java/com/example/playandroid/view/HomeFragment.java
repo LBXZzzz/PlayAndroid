@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,7 +46,7 @@ public class HomeFragment extends Fragment implements IView,IView2{
     private final ArrayList<ImageView> mImageViewList=new ArrayList<>();
     private int currentPosition;
     private final List<String> mBannerTitle=new ArrayList<>();
-    private List<String> mBannerLink=new ArrayList<>();
+    private final List<String> mBannerLink=new ArrayList<>();
     private List<HomeTextItem> mHomeTextItemList =new ArrayList<>();
     private List<HomeTextItem> mTotalHomeTextItemList =new ArrayList<>();
     private List<BannerItem> mBannerItemList=new ArrayList<>();
@@ -74,10 +73,9 @@ public class HomeFragment extends Fragment implements IView,IView2{
         if(rootView==null){
             rootView =inflater.inflate(R.layout.fragment_home, container, false);
         }
-        mProgressBar=(ProgressBar)rootView.findViewById(R.id.home_pb);
+        mProgressBar=rootView.findViewById(R.id.home_pb);
         mProgressBar.setVisibility(View.VISIBLE);
-        recyclerView=(RecyclerView) rootView.findViewById(R.id.home_recycler_view);
-        //mSwipeRefreshLayout.setColorSchemeColors(Color.RED, Color.BLUE);
+        recyclerView=rootView.findViewById(R.id.home_recycler_view);
         presenter=new Presenter(this,this);
         presenter.fetchGetHomeData(page);
         presenter.fetchGetBannerData();
@@ -88,12 +86,12 @@ public class HomeFragment extends Fragment implements IView,IView2{
         return rootView;
     }
 
-
+    @SuppressWarnings("unchecked")
     @Override
     public void showData(ArrayList<?> list) {
         mHomeTextItemList =(ArrayList<HomeTextItem>)list;
         mTotalHomeTextItemList.addAll(mHomeTextItemList);
-        mProgressBar=(ProgressBar)rootView.findViewById(R.id.home_pb);
+        mProgressBar=rootView.findViewById(R.id.home_pb);
         if(page==0){
             homeRecyclerViewAdapter=new HomeRecyclerViewAdapter(mHomeTextItemList);
             recyclerView.setAdapter(homeRecyclerViewAdapter);
@@ -127,21 +125,23 @@ public class HomeFragment extends Fragment implements IView,IView2{
             @Override
             public void onItemClick(View view, int position) {
                 String data= mTotalHomeTextItemList.get(position).getLink();
+                String title=mTotalHomeTextItemList.get(position).getTitle();
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
+                intent.putExtra("title",title);
                 startActivity(intent);
             }
         });
         mProgressBar.setVisibility(View.GONE);
     }
 
-
+    @SuppressWarnings("unchecked")
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void showData2(ArrayList<?> list) {
         mBannerItemList=(List<BannerItem>)list;
-        mViewPager=(ViewPager) rootView.findViewById(R.id.home_view_paper);
-        mTextView=(TextView)rootView.findViewById(R.id.home_banner_text);
+        mViewPager=rootView.findViewById(R.id.home_view_paper);
+        mTextView=rootView.findViewById(R.id.home_banner_text);
         mImageView=new ImageView(getActivity());
         mImageView.setImageBitmap(mBannerItemList.get(2).getBitmap());
         mImageViewList.add(mImageView);

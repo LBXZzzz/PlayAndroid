@@ -60,14 +60,21 @@ public class HttpUtil {
         return jsonString;
     }
 
-    public String postMethod(String url,String param){
-        String key="k="+param;
+    public String postMethod(String url,String param,String param1,String param2,int paramNumber){
+        String key="";
+        if(paramNumber==1){
+            key="k="+param;
+        }
+        if(paramNumber==2){
+            String userName="username="+param;
+            String Password="password="+param1;
+            key=userName+"&"+Password;
+        }
         // 结果值
         StringBuffer rest=new StringBuffer();
         CookieManager manager = new CookieManager();
         //设置cookie策略，只接受与你对话服务器的cookie，而不接收Internet上其它服务器发送的cookie
         manager.setCookiePolicy(CookiePolicy.ACCEPT_ORIGINAL_SERVER);
-
         HttpURLConnection conn=null;
         OutputStream out=null;
         BufferedReader br=null;

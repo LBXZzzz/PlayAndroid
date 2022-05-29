@@ -72,7 +72,7 @@ public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
         super.onAttach(context);
         this.mActivity=(Activity)context;
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public void showData3(ArrayList<?> list) {
         mKnowledgeHierarchyListItems=(ArrayList<KnowledgeHierarchyListItem>) list;
@@ -111,8 +111,6 @@ public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
             @Override
             public void onItemClick(View view, int position) {
                 String data=mTotalKnowledgeHierarchyListItems.get(position).getLink();
-                System.out.println("zwy:"+position);
-                System.out.println("zwy:"+data);
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
                 startActivity(intent);

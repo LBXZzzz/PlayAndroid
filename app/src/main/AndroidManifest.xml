@@ -13,6 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.playAndroid">
         <activity
+            android:name=".view.HistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.KnowledgeHierarchyListActivity"
             android:exported="false" />
         <activity
@@ -25,8 +31,8 @@
             android:exported="false" />
         <activity
             android:name=".view.MainActivity"
-            android:launchMode="singleTask"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

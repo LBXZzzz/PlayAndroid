@@ -6,11 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.playandroid.entities.BannerItem;
-import com.example.playandroid.entities.HomeTextItem;
-import com.example.playandroid.entities.ProjectList;
 import com.example.playandroid.entities.ProjectListItem;
-import com.example.playandroid.entities.SearchHotWord;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +25,7 @@ public class GetProjectListDataImpl implements IGetDataIdPage{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
                     getProjectListDataString(httpUtil.httpUtil(Url));
                 } catch (JSONException e) {

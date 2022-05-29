@@ -4,8 +4,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.example.playandroid.entities.HomeTextItem;
-import com.example.playandroid.entities.SearchHotWord;
 import com.example.playandroid.entities.SearchResult;
 
 import org.json.JSONArray;
@@ -21,9 +19,9 @@ public class GetSearchReturnResultImpl implements IGetDataIdPage{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
-                    getSearchReturnResultFirstString(httpUtil.postMethod(Url,param));
+                    getSearchReturnResultFirstString(httpUtil.postMethod(Url,param,"","",1));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

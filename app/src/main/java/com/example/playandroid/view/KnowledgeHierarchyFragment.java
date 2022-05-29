@@ -61,7 +61,7 @@ public class KnowledgeHierarchyFragment extends Fragment implements IView,IView2
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         return rootView;
     }
-
+    @SuppressWarnings("unchecked")
     @Override
     public void showData(ArrayList<?> list) {
         mList=(ArrayList<KnowledgeHierarchy>)list;

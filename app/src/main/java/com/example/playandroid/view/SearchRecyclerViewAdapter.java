@@ -20,7 +20,6 @@ import java.util.List;
 
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
     private ArrayList<SearchResult> mList=new ArrayList<>();
-    private List<SearchResult> list=new ArrayList<>();
     private boolean arriveBottom=false;
     public SearchRecyclerViewAdapter(ArrayList<SearchResult> list){
         this.mList=list;
@@ -69,6 +68,10 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             footerText=(TextView) itemView.findViewById(R.id.footer_text);
             progressBar=(ProgressBar)itemView.findViewById(R.id.pb_main_download);
             if(arriveBottom){
+                progressBar.setVisibility(View.GONE);
+                footerText.setText("已经到底了喔~~");
+            }
+            if (mList.size()<10){
                 progressBar.setVisibility(View.GONE);
                 footerText.setText("已经到底了喔~~");
             }
@@ -147,10 +150,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
     public void updateData(List<SearchResult> list){
         //再此处理获得的数据  list为传进来的数据
         //... list传进来的数据 添加到mList中
-        Log.d("sssss",list.get(1).getTitle());
         if (list.isEmpty()){
             arriveBottom=true;
-            Log.d("ssss","6666611465");
         }
         for (int i = 0; i < list.size(); i++) {
             mList.add(list.get(i));

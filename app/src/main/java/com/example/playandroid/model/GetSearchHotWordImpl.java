@@ -1,20 +1,14 @@
 package com.example.playandroid.model;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.playandroid.entities.BannerItem;
 import com.example.playandroid.entities.SearchHotWord;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class GetSearchHotWordImpl implements IGetData{
@@ -25,7 +19,7 @@ public class GetSearchHotWordImpl implements IGetData{
         new Thread(new Runnable() {//开启子线程
             @Override
             public void run() {
-                HttpUtil httpUtil=new HttpUtil();
+                HttpUtil httpUtil =new HttpUtil();
                 try {
                     getSearchHotWord(httpUtil.httpUtil(Url));
                 } catch (JSONException e) {

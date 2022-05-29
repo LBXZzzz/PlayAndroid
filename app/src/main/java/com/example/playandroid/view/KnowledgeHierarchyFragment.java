@@ -71,12 +71,12 @@ public class KnowledgeHierarchyFragment extends Fragment implements IView,IView2
             @Override
             public void onItemClick(View view, int position) {
                 ArrayList<KnowledgeHierarchyList> knowledgeHierarchyLists=mList.get(position).getKnowledgeHierarchyLists();
+                System.out.println("zwyii"+knowledgeHierarchyLists.get(0).getName());
                 Intent intent=new Intent(getActivity(), KnowledgeHierarchyListActivity.class);//给后面开启的活动传值
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("DataList",(Serializable)knowledgeHierarchyLists);
                 intent.putExtras(bundle);
                 startActivity(intent);
-                getActivity().finish();
             }
         });
     }

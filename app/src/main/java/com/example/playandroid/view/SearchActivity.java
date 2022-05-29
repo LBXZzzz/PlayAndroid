@@ -77,8 +77,8 @@ public class SearchActivity extends AppCompatActivity implements IView,IView2,IV
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 mProgressBar.setVisibility(View.VISIBLE);
+                page=0;
                 //这里写事件，返回为true，即为搜索键的事件
-                Log.d("search",mEditText.getText().toString());
                 param=mEditText.getText().toString();
                 presenter1.fetchGetSearchReturnResult(param,page);
                 //点击回车后自动收起键盘
@@ -104,6 +104,14 @@ public class SearchActivity extends AppCompatActivity implements IView,IView2,IV
             Button bt = new Button(this);
             bt.setText(mList.get(i).getName());
             mLinearLayout.addView(bt);
+            bt.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    page=0;
+                    param=bt.getText().toString();
+                    presenter1.fetchGetSearchReturnResult(param,page);
+                }
+            });
         }
     }
 

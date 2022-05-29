@@ -40,8 +40,8 @@ public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
     public static KnowledgeHierarchyListFragment newInstance(String Id) {
         KnowledgeHierarchyListFragment fragment = new KnowledgeHierarchyListFragment();
         Bundle args = new Bundle();
-        args.putString("Id",Id);
         fragment.setArguments(args);
+        args.putString("Id",Id);
         return fragment;
     }
 
@@ -57,7 +57,7 @@ public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
         if(rootView==null){
             rootView =inflater.inflate(R.layout.fragment_knowledge_hierarchy_list, container, false);
         }
-        Id = getArguments().getString("Id");
+        Log.d("zwytx",Id);
         mRecyclerView=(RecyclerView) rootView.findViewById(R.id.knowledge_hierarchy_listFragment_recyclerView);
         presenter1=new Presenter1(this);
         presenter1.fetchGetKnowledgeHierarchyList(Id,page);

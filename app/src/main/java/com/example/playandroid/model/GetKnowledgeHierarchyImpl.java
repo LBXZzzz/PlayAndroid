@@ -38,10 +38,20 @@ public class GetKnowledgeHierarchyImpl implements IGetData{
         String nameSecondSum ="";
         JSONObject jsonObject = new JSONObject(jsonData);
         JSONArray jsonArray = jsonObject.getJSONArray("data");
+        if(list.isEmpty()){
+            Log.d("sb","000000");
+        }else {
+            list=new ArrayList<>();
+        }
         for (int firstNumber = 0; firstNumber < jsonArray.length(); firstNumber++) {
             JSONObject jsonObject1 = jsonArray.getJSONObject(firstNumber);
             nameFirst = jsonObject1.getString("name");
             JSONArray jsonArray2 = jsonObject1.getJSONArray("children");
+            if(knowledgeHierarchyListArrayList.isEmpty()){
+                Log.d("sb","000000");
+            }else {
+                knowledgeHierarchyListArrayList=new ArrayList<>();
+            }
             for (int secondNumber = 0; secondNumber < jsonArray2.length(); secondNumber++) {
                 String name;
                 String id;

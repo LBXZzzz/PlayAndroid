@@ -189,7 +189,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                             }
                             break;
                         case MotionEvent.ACTION_UP:
-                            mHandler.sendEmptyMessageDelayed(0, 1000*2);
+                            mHandler.sendEmptyMessageDelayed(0, 900*2);
                             beginCarousel=false;
                             if(viewPaperClick==0){
                                 Log.d("touch","5555");

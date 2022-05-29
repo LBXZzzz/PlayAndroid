@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.TableLayout;
 
 import com.example.playandroid.R;
@@ -33,10 +34,10 @@ public class KnowledgeHierarchyListActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
         List<KnowledgeHierarchyList> knowledgeHierarchyLists = (ArrayList) bundle.getSerializable("DataList");
         for (int i = 0; i < knowledgeHierarchyLists.size(); i++) {
+            Log.d("zwyt",knowledgeHierarchyLists.get(i).getId());
             mFragmentList.add(KnowledgeHierarchyListFragment.newInstance(knowledgeHierarchyLists.get(i).getId()));
             mName.add(knowledgeHierarchyLists.get(i).getName());
         }
-
         ProjectAdapter projectAdapter=new ProjectAdapter(getSupportFragmentManager(),mFragmentList,mName);
         mViewPager.setAdapter(projectAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
@@ -59,9 +60,6 @@ public class KnowledgeHierarchyListActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
 
 
 }

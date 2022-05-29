@@ -159,9 +159,11 @@ public class SearchActivity extends AppCompatActivity implements IView,IView2,IV
        searchRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                String title=mTotalSearchResultList.get(position).getTitle();
                 String data= mTotalSearchResultList.get(position).getLink();
                 Intent intent=new Intent(SearchActivity.this, WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
+                intent.putExtra("title",title);
                 startActivity(intent);
             }
         });

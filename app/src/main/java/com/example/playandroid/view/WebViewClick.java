@@ -32,7 +32,9 @@ public class WebViewClick extends AppCompatActivity {
         WebView webView=findViewById(R.id.home_fragment_click_web_view);
         ProgressBar progressBar=findViewById(R.id.Web_view_progressbar);
         //文件储存文章的标题和链接
-        save(title);
+        if(!title.isEmpty()){
+            save(title);
+        }
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl(link);

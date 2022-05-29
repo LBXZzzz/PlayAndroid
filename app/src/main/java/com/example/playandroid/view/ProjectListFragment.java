@@ -115,8 +115,10 @@ public class ProjectListFragment extends Fragment implements IView3{
         projectListRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                String title=mTotalProjectListItemArrayList.get(position).getTitle();
                 String data= mTotalProjectListItemArrayList.get(position).getLink();
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
+                intent.putExtra("title",title);
                 intent.putExtra("link",data);
                 startActivity(intent);
             }

@@ -192,11 +192,12 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                             mHandler.sendEmptyMessageDelayed(0, 900*2);
                             beginCarousel=false;
                             if(viewPaperClick==0){
-                                Log.d("touch","5555");
                                 int item= mViewPager.getCurrentItem();
                                 String data=mBannerLink.get(item);
+                                String title=mBannerTitle.get(item);
                                 Intent intent=new Intent(itemView.getContext(), WebViewClick.class);//给后面开启的活动传值
                                 intent.putExtra("link",data);
+                                intent.putExtra("title",title);
                                 rootView.getContext().startActivity(intent);
                             }
                     }

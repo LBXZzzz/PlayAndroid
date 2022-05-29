@@ -110,9 +110,11 @@ public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
         knowledgeHierarchyListRecyclerViewAdapter.setOnItemClickListener(new KnowledgeHierarchyListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                String title=mTotalKnowledgeHierarchyListItems.get(position).getTitle();
                 String data=mTotalKnowledgeHierarchyListItems.get(position).getLink();
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
+                intent.putExtra("title",title);
                 startActivity(intent);
             }
         });

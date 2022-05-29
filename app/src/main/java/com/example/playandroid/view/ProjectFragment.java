@@ -53,7 +53,6 @@ public class ProjectFragment extends Fragment implements IView,IView2{
         }
         mTabLayout=rootView.findViewById(R.id.project_tab_layout);
         mViewPager=rootView.findViewById(R.id.project_view_paper);
-        //mViewPager.setOffscreenPageLimit(12);
         presenter=new Presenter(this,this);
         presenter.fetchGetProjectData();
         return rootView;
@@ -65,7 +64,6 @@ public class ProjectFragment extends Fragment implements IView,IView2{
         for (int i = 0; i < mProjectLists.size(); i++) {
             mProjectName.add(mProjectLists.get(i).getName());
             mFragmentList.add(ProjectListFragment.newInstance(mProjectLists.get(i).getId()));
-            Log.d("System",mProjectLists.get(i).getId());
         }
         ProjectAdapter projectAdapter=new ProjectAdapter(getChildFragmentManager(),mFragmentList,mProjectName);
         mViewPager.setAdapter(projectAdapter);

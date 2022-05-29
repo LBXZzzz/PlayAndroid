@@ -25,6 +25,7 @@ public class HttpUtil {
         HttpsURLConnection connection=null;
         BufferedReader reader=null;
         try {
+            Log.d("zwyp",Url);
             URL url=new URL(Url);
             connection=(HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("GET");

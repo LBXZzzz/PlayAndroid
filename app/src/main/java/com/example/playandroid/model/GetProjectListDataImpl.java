@@ -102,7 +102,6 @@ public class GetProjectListDataImpl implements IGetDataIdPage{
     public void getData(String Id, int page, SuccessReturnDataPageId successReturnDataPageId) {
         String sPage=String.valueOf(page);
         String Url="https://www.wanandroid.com/project/list/"+sPage+"/json?cid="+Id;
-        System.out.println("url:"+Url);
         getProjectListDataFirst(Url);
         handler=new Handler(){
             @Override

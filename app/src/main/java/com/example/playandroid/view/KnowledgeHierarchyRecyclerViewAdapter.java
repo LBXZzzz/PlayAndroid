@@ -15,7 +15,7 @@ import com.example.playandroid.entities.KnowledgeHierarchy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KnowledgeHierarchyAdapter extends RecyclerView.Adapter<KnowledgeHierarchyAdapter.ViewHolder>{
+public class KnowledgeHierarchyRecyclerViewAdapter extends RecyclerView.Adapter<KnowledgeHierarchyRecyclerViewAdapter.ViewHolder>{
     List<KnowledgeHierarchy> list=new ArrayList<>();
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
@@ -35,7 +35,7 @@ public class KnowledgeHierarchyAdapter extends RecyclerView.Adapter<KnowledgeHie
     public void setOnItemLongClickListener(HomeRecyclerViewAdapter.OnItemLongClickListener mOnItemLongClickListener) {
         this.mOnItemLongClickListener = mOnItemLongClickListener;
     }
-    public KnowledgeHierarchyAdapter(List<KnowledgeHierarchy> list){
+    public KnowledgeHierarchyRecyclerViewAdapter(List<KnowledgeHierarchy> list){
         this.list=list;
     }
 

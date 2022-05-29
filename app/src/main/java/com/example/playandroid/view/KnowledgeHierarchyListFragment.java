@@ -15,61 +15,56 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.example.playandroid.R;
-import com.example.playandroid.entities.ProjectListItem;
-import com.example.playandroid.presenter.Presenter;
+import com.example.playandroid.entities.KnowledgeHierarchyListItem;
 import com.example.playandroid.presenter.Presenter1;
 
 import java.util.ArrayList;
 
-public class ProjectListFragment extends Fragment implements IView3{
 
+public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
+    private ArrayList<KnowledgeHierarchyListItem> mKnowledgeHierarchyListItems;
     private View rootView;
-    private static String mProjectListId;
     private RecyclerView mRecyclerView;
-    private ProgressBar mProgressBar;
-    private ProjectListRecyclerViewAdapter projectListRecyclerViewAdapter;
+    private String Id;
     public Activity mActivity;
-    Presenter1 presenter;
-    private ArrayList<String> mProjectListIdList=new ArrayList<>();
+    private KnowledgeHierarchyListRecyclerViewAdapter knowledgeHierarchyListRecyclerViewAdapter;
     int page=0;
-    private ArrayList<ProjectListItem> mProjectListItemArrayList;
-    public ProjectListFragment() {
-        // Required empty public constructor
+    Presenter1 presenter1;
+
+    public KnowledgeHierarchyListFragment() {
     }
 
-    public static ProjectListFragment newInstance(String projectListId) {
-        ProjectListFragment fragment = new ProjectListFragment();
+    public static KnowledgeHierarchyListFragment newInstance(String Id) {
+        KnowledgeHierarchyListFragment fragment = new KnowledgeHierarchyListFragment();
         Bundle args = new Bundle();
+        args.putString("Id",Id);
         fragment.setArguments(args);
-        args.putString("projectListId",projectListId);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProjectListId = getArguments().getString("projectListId");
+        Id = getArguments().getString("Id");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         if(rootView==null){
-            rootView =inflater.inflate(R.layout.fragment_project_list, container, false);
+            rootView =inflater.inflate(R.layout.fragment_knowledge_hierarchy_list, container, false);
         }
-        mProgressBar=(ProgressBar) rootView.findViewById(R.id.project_list_progressbar);
-        mRecyclerView=(RecyclerView) rootView.findViewById(R.id.project_list_recycler_view);
-        presenter=new Presenter1(this);
-        presenter.fetchGetProjectListData(mProjectListId,page);
+        Id = getArguments().getString("Id");
+        mRecyclerView=(RecyclerView) rootView.findViewById(R.id.knowledge_hierarchy_listFragment_recyclerView);
+        presenter1=new Presenter1(this);
+        presenter1.fetchGetKnowledgeHierarchyList(Id,page);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(mActivity,DividerItemDecoration.VERTICAL));
         return rootView;
     }
-
 
     @Override
     public void onAttach(Context context){
@@ -79,12 +74,12 @@ public class ProjectListFragment extends Fragment implements IView3{
 
     @Override
     public void showData3(ArrayList<?> list) {
-        mProjectListItemArrayList=(ArrayList<ProjectListItem>) list;
-       if(page==0){
-            projectListRecyclerViewAdapter=new ProjectListRecyclerViewAdapter(mProjectListItemArrayList);
-            mRecyclerView.setAdapter(projectListRecyclerViewAdapter);
+        mKnowledgeHierarchyListItems=(ArrayList<KnowledgeHierarchyListItem>) list;
+        if(page==0){
+            knowledgeHierarchyListRecyclerViewAdapter=new KnowledgeHierarchyListRecyclerViewAdapter(mKnowledgeHierarchyListItems);
+            mRecyclerView.setAdapter(knowledgeHierarchyListRecyclerViewAdapter);
         }else {
-            projectListRecyclerViewAdapter.updateData(mProjectListItemArrayList);
+           knowledgeHierarchyListRecyclerViewAdapter.updateData(mKnowledgeHierarchyListItems);
         }
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -100,8 +95,7 @@ public class ProjectListFragment extends Fragment implements IView3{
                     if (lastItemPosition == (itemCount - 1) ) {
                         //加载更多
                         page++;
-                        presenter.fetchGetProjectListData(mProjectListId,page);
-                        //homeRecyclerViewAdapter.updateData();
+                        presenter1.fetchGetKnowledgeHierarchyList(Id,page);
                     }
                 }
             }
@@ -111,16 +105,15 @@ public class ProjectListFragment extends Fragment implements IView3{
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        projectListRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
+        knowledgeHierarchyListRecyclerViewAdapter.setOnItemClickListener(new KnowledgeHierarchyListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String data= mProjectListItemArrayList.get(position).getLink();
+                String data=mKnowledgeHierarchyListItems.get(position).getLink();
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
                 startActivity(intent);
             }
         });
-        mProgressBar.setVisibility(View.GONE);
-    }
 
+    }
 }

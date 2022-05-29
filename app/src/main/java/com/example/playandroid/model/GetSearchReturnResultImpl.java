@@ -24,9 +24,6 @@ public class GetSearchReturnResultImpl implements IGetDataIdPage{
                 HttpUtil httpUtil=new HttpUtil();
                 try {
                     getSearchReturnResultFirstString(httpUtil.postMethod(Url,param));
-                    String b=httpUtil.postMethod("https://www.wanandroid.com/article/query/0/json","面试");
-                    Log.d("hbfzhj",b);
-                    Log.d("search",httpUtil.postMethod(Url,"面试"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

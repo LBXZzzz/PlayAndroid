@@ -150,16 +150,27 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             });
 
            mViewPager.setOnTouchListener(new View.OnTouchListener() {
-
+               float Dx;
+               float Mx;
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
 
                     switch (motionEvent.getAction()){
                         case MotionEvent.ACTION_DOWN:
                             viewPaperClick=0;
+                            Dx=motionEvent.getX();
+                            System.out.println("tou"+Dx);
                             break;
                         case MotionEvent.ACTION_MOVE:
-                            viewPaperClick=1;
+                            Mx=motionEvent.getX();
+                            System.out.println("tou"+Mx);
+                            float move=Mx-Dx;
+                            System.out.println("tou:move"+move);
+                            if (move < -100) {
+                                viewPaperClick = 1;
+                            }else if(move>100){
+                                viewPaperClick = 1;
+                            }
                             break;
                         case MotionEvent.ACTION_UP:
                             if(viewPaperClick==0){

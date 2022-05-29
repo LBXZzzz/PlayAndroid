@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.playandroid.R;
-import com.example.playandroid.entities.HomeTextItem;
 import com.example.playandroid.entities.KnowledgeHierarchy;
+import com.example.playandroid.entities.KnowledgeHierarchyList;
 import com.example.playandroid.presenter.Presenter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -65,12 +65,18 @@ public class KnowledgeHierarchyFragment extends Fragment implements IView,IView2
     @Override
     public void showData(ArrayList<?> list) {
         mList=(ArrayList<KnowledgeHierarchy>)list;
-        KnowledgeHierarchyAdapter knowledgeHierarchyAdapter=new KnowledgeHierarchyAdapter(mList);
+        KnowledgeHierarchyRecyclerViewAdapter knowledgeHierarchyAdapter=new KnowledgeHierarchyRecyclerViewAdapter(mList);
         recyclerView.setAdapter(knowledgeHierarchyAdapter);
         knowledgeHierarchyAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                ArrayList<KnowledgeHierarchyList> knowledgeHierarchyLists=mList.get(position).getKnowledgeHierarchyLists();
+                Intent intent=new Intent(getActivity(), KnowledgeHierarchyListActivity.class);//给后面开启的活动传值
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("DataList",(Serializable)knowledgeHierarchyLists);
+                intent.putExtras(bundle);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }

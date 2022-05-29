@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +16,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.playandroid.R;
-import com.example.playandroid.entities.HomeTextItem;
-import com.example.playandroid.entities.ProjectList;
-import com.example.playandroid.presenter.Presenter;
+
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,7 +59,7 @@ public class UserFragment extends Fragment implements IView{
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if(rootView==null){
@@ -92,7 +90,7 @@ public class UserFragment extends Fragment implements IView{
                     InputStream inputStream =getContext().openFileInput("history");
                     buff=new BufferedReader(new InputStreamReader(inputStream));
                     String strLine;
-                    strList = new ArrayList();
+                    strList = new ArrayList<String>();
                     while ((strLine= buff.readLine()) != null) {
                         strList.add(strLine);
                     }

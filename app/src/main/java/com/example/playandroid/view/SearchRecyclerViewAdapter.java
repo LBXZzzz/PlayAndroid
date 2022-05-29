@@ -1,10 +1,9 @@
 package com.example.playandroid.view;
 
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -12,28 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
-import com.example.playandroid.entities.ProjectListItem;
 import com.example.playandroid.entities.SearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
-    private ArrayList<SearchResult> mList=new ArrayList<>();
+    private ArrayList<SearchResult> mList;
     private boolean arriveBottom=false;
     public SearchRecyclerViewAdapter(ArrayList<SearchResult> list){
         this.mList=list;
         if (list.isEmpty()){
             arriveBottom=true;
-            Log.d("ssss","66666666");
         }
-    }
-    public interface OnItemClickListener{
-        void onItemClick(View view,int position);
-    }
-
-    public interface OnItemLongClickListener{
-        void onItemLongClick(View view,int position);
     }
 
     private HomeRecyclerViewAdapter.OnItemClickListener mOnItemClickListener;
@@ -53,10 +43,10 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         TextView textView4;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view1);
-            textView2=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view2);
-            textView3=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view3);
-            textView4=(TextView) itemView.findViewById(R.id.search_recycler_view_test_view4);
+            textView1=itemView.findViewById(R.id.search_recycler_view_test_view1);
+            textView2=itemView.findViewById(R.id.search_recycler_view_test_view2);
+            textView3=itemView.findViewById(R.id.search_recycler_view_test_view3);
+            textView4= itemView.findViewById(R.id.search_recycler_view_test_view4);
         }
     }
 
@@ -65,8 +55,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         ProgressBar progressBar;
         public FooterHolder(@NonNull View itemView) {
             super(itemView);
-            footerText=(TextView) itemView.findViewById(R.id.footer_text);
-            progressBar=(ProgressBar)itemView.findViewById(R.id.pb_main_download);
+            footerText=itemView.findViewById(R.id.footer_text);
+            progressBar=itemView.findViewById(R.id.pb_main_download);
             if(arriveBottom){
                 progressBar.setVisibility(View.GONE);
                 footerText.setText("已经到底了喔~~");
@@ -131,13 +121,11 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         if (viewType == 0) {
             //你的item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_recycler_view,parent,false);
-            ViewHolder viewHolder=new ViewHolder(view);
-            return viewHolder;
+            return new ViewHolder(view);
         } else {
             //底部“加载更多”item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footertext, parent, false);
-            FooterHolder footerHolder=new FooterHolder(view);
-            return footerHolder;
+            return new FooterHolder(view);
         }
     }
 

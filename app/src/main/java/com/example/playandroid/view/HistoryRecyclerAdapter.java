@@ -30,10 +30,9 @@ public class HistoryRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (viewType == 0) {
             //item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.history_data_recyclerview,parent,false);
-            HistoryRecyclerAdapter.ViewHolder viewHolder = new HistoryRecyclerAdapter.ViewHolder(view);
-            return viewHolder;
+            return new HistoryRecyclerAdapter.ViewHolder(view);
         }
-        return null;
+        return  null;
     }
 
     @Override

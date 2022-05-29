@@ -2,7 +2,6 @@ package com.example.playandroid.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,8 +16,6 @@ import com.example.playandroid.R;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class WebViewClick extends AppCompatActivity {
     //这个是点击跳转文章的WebView

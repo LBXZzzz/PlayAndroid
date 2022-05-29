@@ -25,9 +25,6 @@ public class HistoryActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         List<String> historyDataList = (ArrayList) bundle.getSerializable("HistoryData");
-        for (int i = 0; i < historyDataList.size(); i++) {
-            Log.d("zwyrr",historyDataList.get(i));
-        }
         LinearLayoutManager layoutManager=new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));

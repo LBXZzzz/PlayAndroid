@@ -79,8 +79,10 @@ public class GetProjectListDataImpl implements IGetDataIdPage{
                     //将流转换成Bitmap对象
                     bitmap = BitmapFactory.decodeStream(is);
                     //将更改主界面的消息发送给主线程
-                   ProjectListItem projectListItem=new ProjectListItem(title,desc,niceShareData,author,link,bitmap);
-                   mList.add(projectListItem);
+                    if(bitmap != null && !bitmap.isRecycled()){
+                        ProjectListItem projectListItem=new ProjectListItem(title,desc,niceShareData,author,link,bitmap);
+                        mList.add(projectListItem);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

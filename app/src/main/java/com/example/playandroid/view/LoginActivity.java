@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.playandroid.R;
@@ -40,8 +39,6 @@ public class LoginActivity extends AppCompatActivity implements IView3{
             public void onClick(View view) {
                 mUserName=editTextUser.getText().toString();
                 mPassword=editTextPassword.getText().toString();
-                Log.d("login",mUserName);
-                Log.d("login",mPassword);
                 presenter1.fetchGetLoginResult(mUserName,mPassword);
             }
         });

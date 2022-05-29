@@ -1,6 +1,5 @@
 package com.example.playandroid.view;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
-import com.example.playandroid.entities.HomeTextItem;
-import com.example.playandroid.entities.KnowledgeHierarchyList;
 import com.example.playandroid.entities.KnowledgeHierarchyListItem;
-import com.example.playandroid.entities.ProjectListItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -68,6 +63,9 @@ public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adap
             if(arriveBottom){
                 progressBar.setVisibility(View.GONE);
                 footerText.setText("已经到底了喔~~");
+            }else if(mList.size()<20){
+                progressBar.setVisibility(View.GONE);
+                footerText.setText("已经到底了喔~~");
             }
         }
 
@@ -79,13 +77,11 @@ public class KnowledgeHierarchyListRecyclerViewAdapter extends RecyclerView.Adap
         if (viewType == 0) {
             //item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view,parent,false);
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
+            return new ViewHolder(view);
         } else {
             //底部“加载更多”item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footertext, parent, false);
-            FooterHolder footerHolder = new FooterHolder(view);
-            return footerHolder;
+            return new FooterHolder(view);
         }
 
     }

@@ -60,8 +60,8 @@ public class ProjectListFragment extends Fragment implements IView3{
         if(rootView==null){
             rootView =inflater.inflate(R.layout.fragment_project_list, container, false);
         }
-        mProgressBar=(ProgressBar) rootView.findViewById(R.id.project_list_progressbar);
-        mRecyclerView=(RecyclerView) rootView.findViewById(R.id.project_list_recycler_view);
+        mProgressBar=rootView.findViewById(R.id.project_list_progressbar);
+        mRecyclerView=rootView.findViewById(R.id.project_list_recycler_view);
         presenter=new Presenter1(this);
         presenter.fetchGetProjectListData(mProjectListId,page);
         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
@@ -102,7 +102,6 @@ public class ProjectListFragment extends Fragment implements IView3{
                         //加载更多
                         page++;
                         presenter.fetchGetProjectListData(mProjectListId,page);
-                        //homeRecyclerViewAdapter.updateData();
                     }
                 }
             }

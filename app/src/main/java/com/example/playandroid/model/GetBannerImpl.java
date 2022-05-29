@@ -38,7 +38,7 @@ public class GetBannerImpl implements IGetData{
     public void getBanner(String jsonData) throws JSONException {
         String title;
         String imagePath;
-        String Url = null;
+        String Url;
         Bitmap bitmap;
         JSONObject jsonObject1 = new JSONObject(jsonData);
         JSONArray jsonArray=jsonObject1.getJSONArray("data");

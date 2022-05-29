@@ -1,11 +1,9 @@
 package com.example.playandroid.view;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,31 +25,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<HomeTextItem> mList =new ArrayList<>();
-    List<HomeTextItem> mTemporaryList =new ArrayList<>();
-    private HomeRecyclerViewAdapter homeRecyclerViewAdapter;
+    List<HomeTextItem> mList;
     //初始化ViewPager
     private View rootView;
-    private ProgressBar mProgressBar;
-
     private int viewPaperClick;
     private ViewPager mViewPager;
     private TextView mTextView;
-    private RecyclerView recyclerView;
     private ImageView mImageView;
     private final ArrayList<ImageView> mImageViewList=new ArrayList<>();
     private int currentPosition;
     private final List<String> mBannerTitle=new ArrayList<>();
-    private List<String> mBannerLink=new ArrayList<>();
-    private List<HomeTextItem> mHomeTextItemList =new ArrayList<>();
-    private List<HomeTextItem> mTotalHomeTextItemList =new ArrayList<>();
+    private final List<String> mBannerLink=new ArrayList<>();
     private List<BannerItem> mBannerItemList=new ArrayList<>();
     private boolean beginCarousel=true;
-    Presenter presenter;
-    public Activity mActivity;
-    int page=0;
     private boolean arriveBottom=false;
-    private Handler mHandler = new Handler() {
+    private final Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
             int count =5;
             int index=mViewPager.getCurrentItem();
@@ -89,10 +77,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         TextView textView4;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view1);
-            textView2=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view2);
-            textView3=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view3);
-            textView4=(TextView) itemView.findViewById(R.id.home_recycler_view_test_view4);
+            textView1= itemView.findViewById(R.id.home_recycler_view_test_view1);
+            textView2= itemView.findViewById(R.id.home_recycler_view_test_view2);
+            textView3= itemView.findViewById(R.id.home_recycler_view_test_view3);
+            textView4= itemView.findViewById(R.id.home_recycler_view_test_view4);
         }
     }
 
@@ -104,12 +92,13 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             presenter=new Presenter(this,this);
             presenter.fetchGetBannerData();
         }
+        @SuppressWarnings("unchecked")
         @SuppressLint("ClickableViewAccessibility")
         @Override
         public void showData2(ArrayList<?> list) {
             mBannerItemList=(List<BannerItem>)list;
-            mViewPager=(ViewPager) rootView.findViewById(R.id.home_view_paper);
-            mTextView=(TextView)rootView.findViewById(R.id.home_banner_text);
+            mViewPager=rootView.findViewById(R.id.home_view_paper);
+            mTextView=rootView.findViewById(R.id.home_banner_text);
             mImageView=new ImageView(itemView.getContext());
             mImageView.setImageBitmap(mBannerItemList.get(2).getBitmap());
             mImageViewList.add(mImageView);
@@ -217,8 +206,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         ProgressBar progressBar;
         public FooterHolder(@NonNull View itemView) {
             super(itemView);
-            footerText=(TextView) itemView.findViewById(R.id.footer_text);
-            progressBar=(ProgressBar)  itemView.findViewById(R.id.pb_main_download);
+            footerText= itemView.findViewById(R.id.footer_text);
+            progressBar= itemView.findViewById(R.id.pb_main_download);
             if(arriveBottom){
                 progressBar.setVisibility(View.GONE);
                 footerText.setText("已经到底了喔~~");
@@ -233,17 +222,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         if (viewType == 0) {
             //item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_recycler_view,parent,false);
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
+            return new ViewHolder(view);
         } else  if(viewType==1){
             //底部“加载更多”item
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footertext, parent, false);
-                FooterHolder footerHolder = new FooterHolder(view);
-                return footerHolder;
+                return new FooterHolder(view);
         }else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.head_holder, parent, false);
-            HeadHolder headHolder=new HeadHolder(view);
-            return headHolder;
+            return new HeadHolder(view);
         }
 
 

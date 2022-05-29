@@ -11,18 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.playandroid.R;
 import com.example.playandroid.entities.KnowledgeHierarchy;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class KnowledgeHierarchyRecyclerViewAdapter extends RecyclerView.Adapter<KnowledgeHierarchyRecyclerViewAdapter.ViewHolder>{
-    List<KnowledgeHierarchy> list=new ArrayList<>();
+    List<KnowledgeHierarchy> list;
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
-    }
-
-    public interface OnItemLongClickListener{
-        void onItemLongClick(View view,int position);
     }
 
     private HomeRecyclerViewAdapter.OnItemClickListener mOnItemClickListener;
@@ -44,8 +38,8 @@ public class KnowledgeHierarchyRecyclerViewAdapter extends RecyclerView.Adapter<
         TextView textView2;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1=(TextView) itemView.findViewById(R.id.test_view1);
-            textView2=(TextView) itemView.findViewById(R.id.test_view2);
+            textView1= itemView.findViewById(R.id.test_view1);
+            textView2= itemView.findViewById(R.id.test_view2);
         }
     }
 
@@ -53,8 +47,7 @@ public class KnowledgeHierarchyRecyclerViewAdapter extends RecyclerView.Adapter<
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.knowledge_hierarchy_item,parent,false);
-        ViewHolder holder=new ViewHolder(view);
-        return holder;
+        return new ViewHolder(view);
     }
 
     @Override

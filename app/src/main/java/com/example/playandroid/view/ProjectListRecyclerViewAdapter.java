@@ -1,8 +1,6 @@
 package com.example.playandroid.view;
 
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,23 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.playandroid.R;
-import com.example.playandroid.entities.HomeTextItem;
 import com.example.playandroid.entities.ProjectListItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener{
-    private ArrayList<ProjectListItem> mList;
-    private List<ProjectListItem> list;
+    private final ArrayList<ProjectListItem> mList;
     private boolean arriveBottom=false;
-    public interface OnItemClickListener{
-        void onItemClick(View view,int position);
-    }
-
-    public interface OnItemLongClickListener{
-        void onItemLongClick(View view,int position);
-    }
 
     private HomeRecyclerViewAdapter.OnItemClickListener mOnItemClickListener;
     private HomeRecyclerViewAdapter.OnItemLongClickListener mOnItemLongClickListener;
@@ -54,11 +43,11 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         TextView textView4;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView1=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview1);
-            textView2=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview2);
-            textView3=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview3);
-            textView4=(TextView) itemView.findViewById(R.id.project_list_recycler_view_textview4);
-            imageView=(ImageView) itemView.findViewById(R.id.project_list_recycler_view_imageview);
+            textView1=itemView.findViewById(R.id.project_list_recycler_view_textview1);
+            textView2=itemView.findViewById(R.id.project_list_recycler_view_textview2);
+            textView3=itemView.findViewById(R.id.project_list_recycler_view_textview3);
+            textView4= itemView.findViewById(R.id.project_list_recycler_view_textview4);
+            imageView=itemView.findViewById(R.id.project_list_recycler_view_imageview);
         }
     }
     public class FooterHolder extends RecyclerView.ViewHolder {
@@ -66,9 +55,12 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         ProgressBar progressBar;
         public FooterHolder(@NonNull View itemView) {
             super(itemView);
-            footerText=(TextView) itemView.findViewById(R.id.footer_text);
-            progressBar=(ProgressBar)itemView.findViewById(R.id.pb_main_download);
+            footerText= itemView.findViewById(R.id.footer_text);
+            progressBar=itemView.findViewById(R.id.pb_main_download);
             if(arriveBottom){
+                progressBar.setVisibility(View.GONE);
+                footerText.setText("已经到底了喔~~");
+            }else if(mList.size()<15){
                 progressBar.setVisibility(View.GONE);
                 footerText.setText("已经到底了喔~~");
             }
@@ -86,13 +78,11 @@ public class ProjectListRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
         if (viewType == 0) {
             //你的item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_recycler_view,parent,false);
-            ViewHolder viewHolder = new ViewHolder(view);
-            return viewHolder;
+            return new ViewHolder(view);
         } else {
             //底部“加载更多”item
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footertext, parent, false);
-            FooterHolder footerHolder=new FooterHolder(view);
-            return footerHolder;
+            return new FooterHolder(view);
         }
     }
 

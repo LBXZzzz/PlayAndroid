@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
     private ArrayList<KnowledgeHierarchyListItem> mKnowledgeHierarchyListItems;
+    private ArrayList<KnowledgeHierarchyListItem> mTotalKnowledgeHierarchyListItems=new ArrayList<>();
     private View rootView;
     private RecyclerView mRecyclerView;
     private String Id;
@@ -75,6 +76,7 @@ public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
     @Override
     public void showData3(ArrayList<?> list) {
         mKnowledgeHierarchyListItems=(ArrayList<KnowledgeHierarchyListItem>) list;
+        mTotalKnowledgeHierarchyListItems.addAll(mKnowledgeHierarchyListItems);
         if(page==0){
             knowledgeHierarchyListRecyclerViewAdapter=new KnowledgeHierarchyListRecyclerViewAdapter(mKnowledgeHierarchyListItems);
             mRecyclerView.setAdapter(knowledgeHierarchyListRecyclerViewAdapter);
@@ -108,7 +110,9 @@ public class KnowledgeHierarchyListFragment extends Fragment implements IView3{
         knowledgeHierarchyListRecyclerViewAdapter.setOnItemClickListener(new KnowledgeHierarchyListRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String data=mKnowledgeHierarchyListItems.get(position).getLink();
+                String data=mTotalKnowledgeHierarchyListItems.get(position).getLink();
+                System.out.println("zwy:"+position);
+                System.out.println("zwy:"+data);
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
                 startActivity(intent);

@@ -33,9 +33,9 @@ public class ProjectListFragment extends Fragment implements IView3{
     private ProjectListRecyclerViewAdapter projectListRecyclerViewAdapter;
     public Activity mActivity;
     Presenter1 presenter;
-    private ArrayList<String> mProjectListIdList=new ArrayList<>();
     int page=0;
     private ArrayList<ProjectListItem> mProjectListItemArrayList;
+    private ArrayList<ProjectListItem> mTotalProjectListItemArrayList=new ArrayList<>();
     public ProjectListFragment() {
         // Required empty public constructor
     }
@@ -80,6 +80,7 @@ public class ProjectListFragment extends Fragment implements IView3{
     @Override
     public void showData3(ArrayList<?> list) {
         mProjectListItemArrayList=(ArrayList<ProjectListItem>) list;
+        mTotalProjectListItemArrayList.addAll(mProjectListItemArrayList);
        if(page==0){
             projectListRecyclerViewAdapter=new ProjectListRecyclerViewAdapter(mProjectListItemArrayList);
             mRecyclerView.setAdapter(projectListRecyclerViewAdapter);
@@ -114,7 +115,7 @@ public class ProjectListFragment extends Fragment implements IView3{
         projectListRecyclerViewAdapter.setOnItemClickListener(new HomeRecyclerViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String data= mProjectListItemArrayList.get(position).getLink();
+                String data= mTotalProjectListItemArrayList.get(position).getLink();
                 Intent intent=new Intent(getActivity(), WebViewClick.class);//给后面开启的活动传值
                 intent.putExtra("link",data);
                 startActivity(intent);

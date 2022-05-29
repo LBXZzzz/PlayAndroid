@@ -3,6 +3,8 @@ package com.example.playandroid.view;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -44,10 +46,20 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     private List<HomeTextItem> mHomeTextItemList =new ArrayList<>();
     private List<HomeTextItem> mTotalHomeTextItemList =new ArrayList<>();
     private List<BannerItem> mBannerItemList=new ArrayList<>();
+    private boolean beginCarousel=true;
     Presenter presenter;
     public Activity mActivity;
     int page=0;
     private boolean arriveBottom=false;
+    private Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            int count =5;
+            int index=mViewPager.getCurrentItem();
+            index=(index+1)%count;
+            mViewPager.setCurrentItem(index);    //收到消息后设置viewPager当前要显示的图片
+            mHandler.sendEmptyMessageDelayed(0, 1000*2);    //第一个参数随便写；第二个参数表示每两秒刷新一次
+        }
+    };
     public interface OnItemClickListener{
         void onItemClick(View view,int position);
     }
@@ -148,7 +160,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     }
                 }
             });
-
+            if (beginCarousel){
+                mHandler.sendEmptyMessageDelayed(0, 1000*2);
+            }
            mViewPager.setOnTouchListener(new View.OnTouchListener() {
                float Dx;
                float Mx;
@@ -157,6 +171,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
                     switch (motionEvent.getAction()){
                         case MotionEvent.ACTION_DOWN:
+                            beginCarousel=false;
+                            mHandler.removeCallbacksAndMessages(null);
                             viewPaperClick=0;
                             Dx=motionEvent.getX();
                             System.out.println("tou"+Dx);
@@ -173,6 +189,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                             }
                             break;
                         case MotionEvent.ACTION_UP:
+                            mHandler.sendEmptyMessageDelayed(0, 1000*2);
+                            beginCarousel=false;
                             if(viewPaperClick==0){
                                 Log.d("touch","5555");
                                 int item= mViewPager.getCurrentItem();
